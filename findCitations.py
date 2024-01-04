@@ -24,7 +24,7 @@ for page in doc:  # scan through the pages
         for l in b["lines"]:  # iterate through the text lines
             for s in l["spans"]:  # iterate through the text spans
                 if "[" in s["text"] or "]" in s["text"]:
-                    if s["flags"] & 2 ** 4:  # is bold
+                    if s["flags"] & 2 ** 4:  # is bold - for bold citations
                         if not s["flags"] & 2 ** 1: # is not itallic
                             refBlock = s["text"].strip('[]')
 #                             print(refBlock)
@@ -35,7 +35,7 @@ for page in doc:  # scan through the pages
                                 pageSingleRef = []
                                 tempPageRefs = refBlock.split(', ')
                                 for ref in tempPageRefs:
-                                    if '-' in ref and not 'Sn' in ref:
+                                    if '-' in ref and not 'Sn' in ref: # rare case of α-Sn in textblock with citation
                                         tempPageRefs.remove(ref)
                                         temp_range = ref.split('-')
                                         range_delta = int(temp_range[-1])-int(temp_range[0])
